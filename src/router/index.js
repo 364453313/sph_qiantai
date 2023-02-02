@@ -31,10 +31,17 @@ export default new VueRouter({
             meta:{show:false}
         },
         {
-            path:'/search/:keyword',
+            path:'/search/:keyword?',//?代表可传可不传
             component:Search,
             meta:{show:true},
-            name:'search'
+            name:'search',
+            //路由组件能不能传递props参数呢?
+            //布尔值写法:params
+            // props:true
+            //对象写法
+            // props:{a:1,b:2},
+            //函数写法
+            props:($route)=>({keyword:$route.params.keyword,k:$route.query.k})
         },
         //默认首页
         {

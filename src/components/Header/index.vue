@@ -64,6 +64,13 @@ export default {
             //2. 模板字符串
             // this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`)
             //3. 对象写法
+            //空串
+            /* this.$router.push({
+                name:'search',
+                params:{keyword:''||undefined},
+                query:{k:this.keyword.toUpperCase()}
+            }) */
+            //4. 路由组件传递props参数
             this.$router.push({
                 name:'search',
                 params:{keyword:this.keyword},
