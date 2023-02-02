@@ -33,6 +33,7 @@
             <div class="searchArea">
                 <form action="###" class="searchForm">
                     <input
+                        v-model="keyword"
                         type="text"
                         id="autocomplete"
                         class="input-error input-xxlarge"
@@ -49,10 +50,25 @@
 <script>
 export default {
     name:'Header',
+    data(){
+        return{
+            keyword:''
+        }
+    },
     methods: {
         //搜索按钮的回调函数，需要向search按钮跳转
         goSearch(){
-            this.$router.push('/search')
+            //路由传参
+            //1. 字符串形式
+            // this.$router.push('/search/'+this.keyword+'?k='+this.keyword.toUpperCase())
+            //2. 模板字符串
+            // this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`)
+            //3. 对象写法
+            this.$router.push({
+                name:'search',
+                params:{keyword:this.keyword},
+                query:{k:this.keyword.toUpperCase()}
+            })
         }
     },
 };
