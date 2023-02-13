@@ -26,6 +26,11 @@ import Brand from '@/pages/Home/Brand'
 import {mapState} from 'vuex'
 export default {
     name:'Home',
+    data(){
+        return {
+            a:2
+        }
+    },
     components:{
         ListContainer,
         TodayRecommend,
@@ -35,12 +40,17 @@ export default {
         Brand
     },
     computed:{
-        ...mapState(['count'])
+        // ...mapState(['count'])
+        
+        //多写几行字
+        count(){
+            return this.$store.state.count
+        }
     },
     methods: {
-        //派发action
+        //派发action，并携带本组件的参数
         add(){
-            this.$store.dispatch("add")
+            this.$store.dispatch("add",this.a)
         }
     },
 }
