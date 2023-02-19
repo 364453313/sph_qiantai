@@ -17,7 +17,7 @@
                             >
                                 <a href="">{{ c1.categoryName }}</a>
                             </h3>
-                            <div class="item-list clearfix">
+                            <div class="item-list clearfix" :style="{display:currentIndex==index?'block':'none'}">
                                 <div
                                     class="subitem"
                                     v-for="(c2, index) in c1.categoryChild"
@@ -203,11 +203,11 @@ export default {
                         }
                     }
 
-                    &:hover {
+                    /* &:hover {
                         .item-list {
                             display: block;
                         }
-                    }
+                    } */
                 }
                 .cur {
                     background-color: skyblue;
