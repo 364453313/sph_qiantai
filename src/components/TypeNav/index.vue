@@ -5,19 +5,34 @@
             <div @mouseleave="leaveIndex">
                 <h2 class="all">全部商品分类</h2>
                 <div class="sort">
-                    <div class="all-sort-list2">
+                    <div class="all-sort-list2" @click="goSearch">
                         <div
                             class="item"
                             v-for="(c1, index) in categoryList"
                             :key="c1.categoryId"
                             :class="{ cur: currentIndex == index }"
                         >
-                            <h3
-                                @mouseenter="changeIndex(index)"
-                            >
-                                <a href="">{{ c1.categoryName }}</a>
+                            <h3 @mouseenter="changeIndex(index)">
+                                <a
+                                    :data-categoryName="c1.categoryName"
+                                    :data-category1Id="c1.categoryId"
+                                    href="javascript:;"
+                                    >{{ c1.categoryName }}</a
+                                >
+                                <!-- router-link声明式导航，可是一个组件，当服务器的数据返回之后，循环出很多的router-link组件【创建组件实例】 一瞬间创建1000+很耗内存，因此出现卡顿-->
+                                <!-- <router-link to="/search">{{
+                                    c1.categoryName
+                                }}</router-link> -->
                             </h3>
-                            <div class="item-list clearfix" :style="{display:currentIndex==index?'block':'none'}">
+                            <div
+                                class="item-list clearfix"
+                                :style="{
+                                    display:
+                                        currentIndex == index
+                                            ? 'block'
+                                            : 'none',
+                                }"
+                            >
                                 <div
                                     class="subitem"
                                     v-for="(c2, index) in c1.categoryChild"
@@ -25,7 +40,16 @@
                                 >
                                     <dl class="fore">
                                         <dt>
-                                            <a href="">{{ c2.categoryName }}</a>
+                                            <a
+                                                :data-categoryName="
+                                                    c2.categoryName
+                                                "
+                                                :data-category2Id="
+                                                    c2.categoryId
+                                                "
+                                                href="javascript:;"
+                                                >{{ c2.categoryName }}</a
+                                            >
                                         </dt>
                                         <dd>
                                             <em
@@ -34,9 +58,16 @@
                                                 ) in c2.categoryChild"
                                                 :key="c3.categoryId"
                                             >
-                                                <a href="">{{
-                                                    c3.categoryName
-                                                }}</a>
+                                                <a
+                                                    :data-categoryName="
+                                                        c3.categoryName
+                                                    "
+                                                    :data-category3Id="
+                                                        c3.categoryId
+                                                    "
+                                                    href="javascript:;"
+                                                    >{{ c3.categoryName }}</a
+                                                >
                                             </em>
                                         </dd>
                                     </dl>
@@ -62,6 +93,8 @@
 
 <script>
 import { mapState } from "vuex";
+//按需引入节流函数
+import throttle from "lodash/throttle";
 export default {
     name: "TypeNav",
     data() {
@@ -81,13 +114,37 @@ export default {
     },
     methods: {
         //鼠标进入修改响应式数据currentIndex属性
-        changeIndex(index) {
+        changeIndex: throttle(function (index) {
             //index：鼠标移上某个一级分类的元素的索引值
             this.currentIndex = index;
-        },
+        }, 50),
         //一级分类移除的事件回调
         leaveIndex() {
             this.currentIndex = -1;
+        },
+        //进行路由跳转的方法
+        goSearch(event) {
+            //最好的解决方案：编程式导航 + 事件委派
+            let element = event.target;
+            // console.log(element)
+            //节点有一个属性dataset属性，可以获取节点的自定义属性和属性值
+            let { categoryname, category1id, category2id, category3id } =
+                element.dataset;
+            if (categoryname) {
+                let location = { name: "search" };
+                let query = { categoryName: categoryname };
+                if (category1id) {
+                    query.category1Id = category1id;
+                } else if (category2id) {
+                    query.category2Id = category2id;
+                } else {
+                    query.category3Id = category3id;
+                }
+                //整理完整参数
+                location.query = query;
+                //路由跳转
+                this.$router.push(location);
+            }
         },
     },
 };
