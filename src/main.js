@@ -6,6 +6,9 @@ import TypeNav from '@/components/TypeNav'
 //第一个参数全局组件的名字,第二个参数:那个组件
 Vue.component(TypeNav.name, TypeNav)
 
+//引入mockServer.js,mock数据
+import "@/mock/mockServer"
+
 //引入路由
 import router from '@/router'
 
