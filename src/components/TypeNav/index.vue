@@ -2,9 +2,9 @@
     <div class="type-nav">
         <div class="container">
             <!-- 事件的委派 -->
-            <div @mouseleave="leaveIndex">
+            <div @mouseleave="leaveIndex" @mouseenter="showSort">
                 <h2 class="all">全部商品分类</h2>
-                <div class="sort">
+                <div class="sort" v-show="show">
                     <div class="all-sort-list2" @click="goSearch">
                         <div
                             class="item"
@@ -101,11 +101,17 @@ export default {
         return {
             //存储用户鼠标移上哪一个一级分类
             currentIndex: -1,
+            show: true,
         };
     },
     //组件挂载完毕向服务器发送请求
     mounted() {
         this.$store.dispatch("categoryList");
+        //当组件挂载完毕，让show属性变为false
+        //如果不是home组件，让TypeNav隐藏
+        if (this.$route.path != "/home") {
+            this.show = false;
+        }
     },
     computed: {
         ...mapState({
@@ -121,6 +127,7 @@ export default {
         //一级分类移除的事件回调
         leaveIndex() {
             this.currentIndex = -1;
+            this.show = false
         },
         //进行路由跳转的方法
         goSearch(event) {
@@ -146,6 +153,9 @@ export default {
                 this.$router.push(location);
             }
         },
+        showSort(){
+            this.show = true
+        }
     },
 };
 </script>
