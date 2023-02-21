@@ -2,80 +2,85 @@
     <div class="type-nav">
         <div class="container">
             <!-- 事件的委派 -->
-            <div @mouseleave="leaveIndex" @mouseenter="showSort">
+            <div @mouseleave="leaveShow" @mouseenter="enterShow">
                 <h2 class="all">全部商品分类</h2>
-                <div class="sort" v-show="show">
-                    <div class="all-sort-list2" @click="goSearch">
-                        <div
-                            class="item"
-                            v-for="(c1, index) in categoryList"
-                            :key="c1.categoryId"
-                            :class="{ cur: currentIndex == index }"
-                        >
-                            <h3 @mouseenter="changeIndex(index)">
-                                <a
-                                    :data-categoryName="c1.categoryName"
-                                    :data-category1Id="c1.categoryId"
-                                    href="javascript:;"
-                                    >{{ c1.categoryName }}</a
-                                >
-                                <!-- router-link声明式导航，可是一个组件，当服务器的数据返回之后，循环出很多的router-link组件【创建组件实例】 一瞬间创建1000+很耗内存，因此出现卡顿-->
-                                <!-- <router-link to="/search">{{
+                <!-- 过渡动画 -->
+                <transition name="sort">
+                    <div class="sort" v-show="show">
+                        <div class="all-sort-list2" @click="goSearch">
+                            <div
+                                class="item"
+                                v-for="(c1, index) in categoryList"
+                                :key="c1.categoryId"
+                                :class="{ cur: currentIndex == index }"
+                            >
+                                <h3 @mouseenter="changeIndex(index)">
+                                    <a
+                                        :data-categoryName="c1.categoryName"
+                                        :data-category1Id="c1.categoryId"
+                                        href="javascript:;"
+                                        >{{ c1.categoryName }}</a
+                                    >
+                                    <!-- router-link声明式导航，可是一个组件，当服务器的数据返回之后，循环出很多的router-link组件【创建组件实例】 一瞬间创建1000+很耗内存，因此出现卡顿-->
+                                    <!-- <router-link to="/search">{{
                                     c1.categoryName
                                 }}</router-link> -->
-                            </h3>
-                            <div
-                                class="item-list clearfix"
-                                :style="{
-                                    display:
-                                        currentIndex == index
-                                            ? 'block'
-                                            : 'none',
-                                }"
-                            >
+                                </h3>
                                 <div
-                                    class="subitem"
-                                    v-for="(c2, index) in c1.categoryChild"
-                                    :key="c2.categoryId"
+                                    class="item-list clearfix"
+                                    :style="{
+                                        display:
+                                            currentIndex == index
+                                                ? 'block'
+                                                : 'none',
+                                    }"
                                 >
-                                    <dl class="fore">
-                                        <dt>
-                                            <a
-                                                :data-categoryName="
-                                                    c2.categoryName
-                                                "
-                                                :data-category2Id="
-                                                    c2.categoryId
-                                                "
-                                                href="javascript:;"
-                                                >{{ c2.categoryName }}</a
-                                            >
-                                        </dt>
-                                        <dd>
-                                            <em
-                                                v-for="(
-                                                    c3, index
-                                                ) in c2.categoryChild"
-                                                :key="c3.categoryId"
-                                            >
+                                    <div
+                                        class="subitem"
+                                        v-for="(c2, index) in c1.categoryChild"
+                                        :key="c2.categoryId"
+                                    >
+                                        <dl class="fore">
+                                            <dt>
                                                 <a
                                                     :data-categoryName="
-                                                        c3.categoryName
+                                                        c2.categoryName
                                                     "
-                                                    :data-category3Id="
-                                                        c3.categoryId
+                                                    :data-category2Id="
+                                                        c2.categoryId
                                                     "
                                                     href="javascript:;"
-                                                    >{{ c3.categoryName }}</a
+                                                    >{{ c2.categoryName }}</a
                                                 >
-                                            </em>
-                                        </dd>
-                                    </dl>
+                                            </dt>
+                                            <dd>
+                                                <em
+                                                    v-for="(
+                                                        c3, index
+                                                    ) in c2.categoryChild"
+                                                    :key="c3.categoryId"
+                                                >
+                                                    <a
+                                                        :data-categoryName="
+                                                            c3.categoryName
+                                                        "
+                                                        :data-category3Id="
+                                                            c3.categoryId
+                                                        "
+                                                        href="javascript:;"
+                                                        >{{
+                                                            c3.categoryName
+                                                        }}</a
+                                                    >
+                                                </em>
+                                            </dd>
+                                        </dl>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </transition>
             </div>
             <nav class="nav">
                 <a href="###">服装城</a>
@@ -106,7 +111,7 @@ export default {
     },
     //组件挂载完毕向服务器发送请求
     mounted() {
-        this.$store.dispatch("categoryList");
+        // this.$store.dispatch("categoryList");  //移到app组件
         //当组件挂载完毕，让show属性变为false
         //如果不是home组件，让TypeNav隐藏
         if (this.$route.path != "/home") {
@@ -124,10 +129,16 @@ export default {
             //index：鼠标移上某个一级分类的元素的索引值
             this.currentIndex = index;
         }, 50),
-        //一级分类移除的事件回调
-        leaveIndex() {
+        leaveShow() {
+            //如果是search组件的时候才会执行
+            if (this.$route.path != "/home") {
+                this.show = false;
+            }
+            //一级分类移除的事件回调
             this.currentIndex = -1;
-            this.show = false
+        },
+        enterShow() {
+            if (this.$route.path != "/home") this.show = true;
         },
         //进行路由跳转的方法
         goSearch(event) {
@@ -153,9 +164,6 @@ export default {
                 this.$router.push(location);
             }
         },
-        showSort(){
-            this.show = true
-        }
     },
 };
 </script>
@@ -196,7 +204,7 @@ export default {
             left: 0;
             top: 45px;
             width: 210px;
-            height: 461px;
+            // height: 461px;
             position: absolute;
             background: #fafafa;
             z-index: 999;
@@ -280,6 +288,19 @@ export default {
                     background-color: skyblue;
                 }
             }
+        }
+        //过渡动画样式
+        //过渡动画开始状态（进入）
+        .sort-enter{
+            opacity: 0;
+        }
+        //过渡动画结束状态（进入）
+        .sort-enter-to{
+            opacity: 1;
+        }
+        //定义动画时间、速率
+        .sort-enter-active{
+            transition: all .5s linear;
         }
     }
 }
