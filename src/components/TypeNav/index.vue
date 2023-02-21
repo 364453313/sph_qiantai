@@ -158,6 +158,10 @@ export default {
                 } else {
                     query.category3Id = category3id;
                 }
+                //判断路由跳转的时候带有params参数，也要捎带过去
+                if(this.$route.params){
+                    location.params = this.$route.params
+                }
                 //整理完整参数
                 location.query = query;
                 //路由跳转

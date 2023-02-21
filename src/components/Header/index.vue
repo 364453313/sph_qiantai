@@ -8,7 +8,9 @@
                     <p>
                         <span>请</span>
                         <router-link to="/login">登录</router-link>
-                        <router-link to="/register" class="register">免费注册</router-link>
+                        <router-link to="/register" class="register"
+                            >免费注册</router-link
+                        >
                     </p>
                 </div>
                 <div class="typeList">
@@ -38,7 +40,11 @@
                         id="autocomplete"
                         class="input-error input-xxlarge"
                     />
-                    <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">
+                    <button
+                        class="sui-btn btn-xlarge btn-danger"
+                        type="button"
+                        @click="goSearch"
+                    >
                         搜索
                     </button>
                 </form>
@@ -49,15 +55,15 @@
 
 <script>
 export default {
-    name:'Header',
-    data(){
-        return{
-            keyword:''
-        }
+    name: "Header",
+    data() {
+        return {
+            keyword: "",
+        };
     },
     methods: {
         //搜索按钮的回调函数，需要向search按钮跳转
-        goSearch(){
+        goSearch() {
             //路由传参
             //1. 字符串形式
             // this.$router.push('/search/'+this.keyword+'?k='+this.keyword.toUpperCase())
@@ -71,12 +77,17 @@ export default {
                 query:{k:this.keyword.toUpperCase()}
             }) */
             //4. 路由组件传递props参数
-            this.$router.push({
-                name:'search',
-                params:{keyword:this.keyword},
-                query:{k:this.keyword.toUpperCase()}
-            })
-        }
+
+            //如果路径中有query参数也带过去
+            if (this.$route.query) {
+                let location = {
+                    name: "search",
+                    params: { keyword: this.keyword || undefined },
+                };
+                location.query = this.$route.query;
+                this.$router.push(location);
+            }
+        },
     },
 };
 </script>
