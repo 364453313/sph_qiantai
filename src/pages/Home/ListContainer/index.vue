@@ -8,7 +8,7 @@
                         <div class="swiper-slide">
                             <img src="./images/banner1.jpg" />
                         </div>
-                       <!--  <div class="swiper-slide">
+                        <!--  <div class="swiper-slide">
                             <img src="./images/banner2.jpg" />
                         </div>
                         <div class="swiper-slide">
@@ -115,7 +115,19 @@
 </template>
 
 <script>
-export default {name:'ListContainer'};
+import { mapState } from "vuex";
+export default {
+    name: "ListContainer",
+    mounted() {
+        //派发actions
+        this.$store.dispatch("imgBanner");
+    },
+    computed: {
+        ...mapState({
+            imgBanner: (state) => state.home.imgBanner,
+        }),
+    },
+};
 </script>
 
 <style scoped lang="less">
