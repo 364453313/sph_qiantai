@@ -120,12 +120,15 @@ export default {
     name: "ListContainer",
     mounted() {
         //派发actions
-        this.$store.dispatch("imgBanner");
+        this.$store.dispatch("getBannerList");
     },
     computed: {
-        ...mapState({
-            imgBanner: (state) => state.home.imgBanner,
-        }),
+        /* ...mapState({
+            getBannerList: (state) => state.home.getBannerList,
+        }), */
+        getBannerList() {
+            return this.$store.home.getBannerList;
+        },
     },
 };
 </script>

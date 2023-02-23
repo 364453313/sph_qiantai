@@ -10,14 +10,14 @@ import "nprogress/nprogress.css"
 
 //1.利用axios对象的方法create，去创建一个axios实例
 //2.request就是axios，只不过增加了配置
-const requests = axios.create({
+const mockAjax = axios.create({
     //配置对象
     //基础路径，发请求的是时候路径当中会出现api
     baseURL:"/mock",
     timeout:5000,
 })
 //请求拦截器：再发请求之前，请求拦截器可以检测到，可以在请求发出去之前做一些事情
-requests.interceptors.request.use((config)=>{
+mockAjax.interceptors.request.use((config)=>{
     //config：配置对象，对象里面有一个属性很重要，header请求头
     //进度条开始动
     nprogress.start()
@@ -25,7 +25,7 @@ requests.interceptors.request.use((config)=>{
 })
 
 //响应拦截器
-requests.interceptors.response.use((res)=>{
+mockAjax.interceptors.response.use((res)=>{
     //成功的回调函数：服务器响应数据回来以后，响应拦截器可以检测到，可以做一些事情
     //进度条结束
     nprogress.done()
@@ -35,4 +35,4 @@ requests.interceptors.response.use((res)=>{
     return Promise.reject(new Error('faile'))
 })
 
-export default requests;
+export default mockAjax;

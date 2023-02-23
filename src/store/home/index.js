@@ -1,16 +1,17 @@
 import { reqCategoryList } from '@/api'
+import { reqgetBannerList } from '@/api'
 //search模块小仓库
 const state = {
     //state中数据默认初始化根据接口返回值初始化
     categoryList: [],
-    imgBanner: []
+    getBannerList: []
 }
 const mutations = {
     CATEGORYLIST(state, categoryList) {
         state.categoryList = categoryList
     },
-    IMGBANNER(state, imgBanner) {
-        state.imgBanner = imgBanner
+    GETBANNERLIST(state, getBannerList) {
+        state.getBannerList = getBannerList
     }
 }
 const actions = {
@@ -21,10 +22,11 @@ const actions = {
             commit("CATEGORYLIST", result.data)
         }
     },
-    async imgBanner({ commit }) {
-        let result = await reqImgBanner()
+    async getBannerList({commit}) {
+        let result = await reqgetBannerList()
+        console.log(result)
         if (result.code == 200) {
-            commit("IMGBANNER", result.data)
+            commit("GETBANNERLIST", result.data)
         }
     }
 }
