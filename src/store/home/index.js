@@ -24,7 +24,6 @@ const actions = {
     },
     async getBannerList({commit}) {
         let result = await reqgetBannerList()
-        console.log(result)
         if (result.code == 200) {
             commit("GETBANNERLIST", result.data)
         }

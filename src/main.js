@@ -9,6 +9,9 @@ Vue.component(TypeNav.name, TypeNav)
 //引入mockServer.js,mock数据
 import "@/mock/mockServer"
 
+//引入swiper样式
+import "swiper/dist/css/swiper.min.css"
+
 //引入路由
 import router from '@/router'
 
