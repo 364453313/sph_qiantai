@@ -126,7 +126,7 @@ export default {
     mounted() {
         //派发actions
         this.$store.dispatch("getBannerList");
-        setTimeout(() => {
+        /* setTimeout(() => {
             var mySwiper = new Swiper(".swiper-container", {
                 loop: true, // 循环模式选项
 
@@ -142,12 +142,40 @@ export default {
                     prevEl: ".swiper-button-prev",
                 },
             });
-        }, 100);
+        }, 1000); */
     },
     computed: {
         ...mapState({
             getBannerList: (state) => state.home.getBannerList,
         }),
+    },
+    watch: {
+        //监听getBannerList数据的变化
+        getBannerList: {
+            handler(newValue, oldValue) {
+                //通过watch监听getBannerList属性值的变化
+                //如果执行handler方法，代表组件实例身上这个属性的属性值是有的，watch是监听属性的变化
+                //v-for是否已经渲染机构无法知道，只能保证getBannerList已经有了
+                // 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+                this.$nextTick(() => {
+                    var mySwiper = new Swiper(".swiper-container", {
+                        loop: true, // 循环模式选项
+
+                        // 如果需要分页器
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true,
+                        },
+
+                        // 如果需要前进后退按钮
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                    });
+                });
+            },
+        },
     },
 };
 </script>
