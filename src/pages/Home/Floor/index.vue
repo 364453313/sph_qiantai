@@ -47,10 +47,8 @@
                         <div class="floorBanner">
                             <div class="swiper-container" id="floor1Swiper">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img
-                                            src="./images/floor-1-b01.png"
-                                        />
+                                    <div class="swiper-slide" v-for="(fl,index) in floor" :key="index">
+                                        <img v-for="(f,index) in fl" :key="index" :src="f" />
                                     </div>
                                     <!-- <div class="swiper-slide">
                                         <img
@@ -102,6 +100,7 @@
 <script>
 export default {
     name: "Floor",
+    props:["list"]
 };
 </script>
 

@@ -1,10 +1,11 @@
-import { reqCategoryList } from '@/api'
+import { reqCategoryList, reqFloorList } from '@/api'
 import { reqgetBannerList } from '@/api'
 //search模块小仓库
 const state = {
     //state中数据默认初始化根据接口返回值初始化
     categoryList: [],
-    getBannerList: []
+    getBannerList: [],
+    floorList:[]
 }
 const mutations = {
     CATEGORYLIST(state, categoryList) {
@@ -12,6 +13,9 @@ const mutations = {
     },
     GETBANNERLIST(state, getBannerList) {
         state.getBannerList = getBannerList
+    },
+    GETFLOORLIST(state,floorList){
+        state.floorList = floorList
     }
 }
 const actions = {
@@ -26,6 +30,12 @@ const actions = {
         let result = await reqgetBannerList()
         if (result.code == 200) {
             commit("GETBANNERLIST", result.data)
+        }
+    },
+    async getFloorList({commit}){
+        let result = await reqFloorList()
+        if(result.code ==200){
+            commit("GETFLOORLIST",result.data)
         }
     }
 }

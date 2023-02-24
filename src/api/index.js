@@ -11,3 +11,6 @@ export const reqCategoryList = () => requests({ url: '/product/getBaseCategoryLi
 //获取home首页轮播图的接口
 // export const reqgetBannerList = () => mockAjax.get('/banner')
 export const reqgetBannerList = () => mockAjax({ url: '/banner', method: 'get' })
+
+//获取floor数据
+export const reqFloorList = () => mockAjax({ url: '/floor', method: 'get' })
