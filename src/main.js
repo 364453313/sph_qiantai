@@ -6,6 +6,10 @@ import TypeNav from '@/components/TypeNav'
 //第一个参数全局组件的名字,第二个参数:那个组件
 Vue.component(TypeNav.name, TypeNav)
 
+//轮播图全局组件
+import Carousel from '@/components/Carousel'
+Vue.component(Carousel.name, Carousel)
+
 //引入mockServer.js,mock数据
 import "@/mock/mockServer"
 
