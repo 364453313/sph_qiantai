@@ -14,3 +14,7 @@ export const reqgetBannerList = () => mockAjax({ url: '/banner', method: 'get' }
 
 //获取floor数据
 export const reqFloorList = () => mockAjax({ url: '/floor', method: 'get' })
+
+// 获取搜索模块请求 地址：/api/list   需要带参传递
+//当前的接口，给服务器传递的参数params，至少是一个空对象
+export const reqGetSearchInfo = (params) => requests({ url: "/list", method: "post", data: params })

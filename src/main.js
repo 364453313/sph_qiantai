@@ -22,6 +22,11 @@ import router from '@/router'
 //引入仓库
 import store from '@/store'
 
+// 接口测试
+/* import {reqGetSearchInfo} from "@/api"
+console.log(reqGetSearchInfo({})) */
+
+
 Vue.config.productionTip = false
 
 new Vue({
