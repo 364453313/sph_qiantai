@@ -18,7 +18,18 @@ const actions = {
     }
 }
 //计算属性，在项目当中为了简化数组而生
-const getters = {}
+const getters = {
+    goodsList(state){
+        //如果服务器的数据回不来，state.searchList.goodsList返回的是undefined
+        return state.searchList.goodsList || []
+    },
+    trademarkList(state){
+        return state.searchList.trademarkList || []
+    },
+    attrsList(state){
+        return state.searchList.attrsLists || []
+    }
+}
 export default {
     state,
     mutations,
