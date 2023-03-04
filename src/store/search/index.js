@@ -27,7 +27,7 @@ const getters = {
         return state.searchList.trademarkList || []
     },
     attrsList(state){
-        return state.searchList.attrsLists || []
+        return state.searchList.attrsList || []
     }
 }
 export default {

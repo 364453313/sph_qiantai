@@ -169,6 +169,7 @@ export default {
     },
     //当组件挂载完成之前
     beforeMount() {
+        //在发请求之前，把接口需要传递的数据整理好，服务器就会返回查询的数据
         Object.assign(this.searchParams,this.$route.query,this.$route.params)
     },
     mounted() {
