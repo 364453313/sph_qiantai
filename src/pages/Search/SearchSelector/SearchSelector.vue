@@ -4,7 +4,7 @@
             <div class="fl key brand">品牌</div>
             <div class="value logos">
                 <ul class="logo-list">
-                    <li v-for="(trademark,index) in trademarkList" :key="trademark.tmId">{{trademark.tmName}}</li>
+                    <li v-for="(trademark,index) in trademarkList" :key="trademark.tmId" @click="tradeMarkHandler(trademark)">{{trademark.tmName}}</li>
                 </ul>
             </div>
             <div class="ext">
@@ -32,6 +32,13 @@ export default {
     name: "SearchSelector",
     computed: {
         ...mapGetters(["trademarkList", "attrsList"]),
+    },
+    methods: {
+        tradeMarkHandler(trademark){
+            //点击品牌需要向服务器发请求获取响应的数据进行展示
+            //因为父组件中的searchParams参数是带给服务器的参数，子组件把点击的品牌的信息需要给父组件传递过去,所以要在父组件中发送请求。
+            this.$emit("trademarkInfo",trademark)
+        }
     },
 };
 </script>
