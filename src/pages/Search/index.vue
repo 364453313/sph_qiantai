@@ -49,23 +49,29 @@
                     <div class="sui-navbar">
                         <div class="navbar-inner filter">
                             <ul class="sui-nav">
-                                <li class="active">
-                                    <a href="#">综合</a>
+                                <li :class="{ active: isOne }">
+                                    <a
+                                        >综合<span
+                                            v-show="isOne"
+                                            class="iconfont"
+                                            :class="{
+                                                'icon-UP': isAsc,
+                                                'icon-DOWN': isDesc,
+                                            }"
+                                        ></span
+                                    ></a>
                                 </li>
-                                <li>
-                                    <a href="#">销量</a>
-                                </li>
-                                <li>
-                                    <a href="#">新品</a>
-                                </li>
-                                <li>
-                                    <a href="#">评价</a>
-                                </li>
-                                <li>
-                                    <a href="#">价格⬆</a>
-                                </li>
-                                <li>
-                                    <a href="#">价格⬇</a>
+                                <li :class="{ active: isTwo }">
+                                    <a
+                                        >价格<span
+                                            v-show="isTwo"
+                                            class="iconfont"
+                                            :class="{
+                                                'icon-UP': isAsc,
+                                                'icon-DOWN': isDesc,
+                                            }"
+                                        ></span
+                                    ></a>
                                 </li>
                             </ul>
                         </div>
@@ -175,7 +181,7 @@ export default {
                 //关键字
                 keyword: "",
                 //排序
-                order: "",
+                order: "2:desc",
                 //分页器用，代表当前页码
                 pageNo: 1,
                 //每页展示数据个数
@@ -201,6 +207,18 @@ export default {
     },
     computed: {
         ...mapGetters(["goodsList"]),
+        isOne() {
+            return this.searchParams.order.indexOf("1") != -1;
+        },
+        isTwo() {
+            return this.searchParams.order.indexOf("2") != -1;
+        },
+        isAsc() {
+            return this.searchParams.order.indexOf("asc") != -1;
+        },
+        isDesc() {
+            return this.searchParams.order.indexOf("desc") != -1;
+        },
     },
     methods: {
         //把请求封装为函数，当需要的时候调用就行了
@@ -256,10 +274,10 @@ export default {
             this.getData();
         },
         //删除售卖属性
-        removeAttr(index){
-            this.searchParams.props.splice(index,1)
+        removeAttr(index) {
+            this.searchParams.props.splice(index, 1);
             this.getData();
-        }
+        },
     },
     //监听组件实例身上的属性值的变化,监听路由的信息是否发生变化，变化就再次发请求
     watch: {
