@@ -12,16 +12,37 @@
                     </ul>
                     <ul class="fl sui-tag">
                         <!-- 分类的面包屑 -->
-                        <li class="with-x" v-if="searchParams.categoryName">{{searchParams.categoryName}}<i @click="removeCategoryName">×</i></li>
+                        <li class="with-x" v-if="searchParams.categoryName">
+                            {{ searchParams.categoryName
+                            }}<i @click="removeCategoryName">×</i>
+                        </li>
                         <!-- 关键字面包屑 -->
-                        <li class="with-x" v-if="searchParams.keyword">{{searchParams.keyword}}<i @click="removeKeyword">×</i></li>
+                        <li class="with-x" v-if="searchParams.keyword">
+                            {{ searchParams.keyword
+                            }}<i @click="removeKeyword">×</i>
+                        </li>
                         <!-- 品牌的面包屑 -->
-                        <li class="with-x" v-if="searchParams.trademark">{{searchParams.trademark.split(':')[1]}}<i @click="removeTrademark">×</i></li>
+                        <li class="with-x" v-if="searchParams.trademark">
+                            {{ searchParams.trademark.split(":")[1]
+                            }}<i @click="removeTrademark">×</i>
+                        </li>
+                        <!-- 平台售卖属性值的面包屑 -->
+                        <li
+                            class="with-x"
+                            v-for="(attrValue, index) in searchParams.props"
+                            :key="index"
+                        >
+                            {{ attrValue.split(":")[1]
+                            }}<i @click="removeAttr(index)">×</i>
+                        </li>
                     </ul>
                 </div>
 
                 <!--selector-->
-                <SearchSelector @trademarkInfo="trademarkInfo" />
+                <SearchSelector
+                    @trademarkInfo="trademarkInfo"
+                    @attrInfo="attrInfo"
+                />
 
                 <!--details-->
                 <div class="details clearfix">
@@ -172,7 +193,7 @@ export default {
     //当组件挂载完成之前
     beforeMount() {
         //在发请求之前，把接口需要传递的数据整理好，服务器就会返回查询的数据
-        Object.assign(this.searchParams,this.$route.query,this.$route.params)
+        Object.assign(this.searchParams, this.$route.query, this.$route.params);
     },
     mounted() {
         //在发请求之前给服务器参数【searchParams参数发生变化有数值带给服务器】
@@ -186,53 +207,75 @@ export default {
         getData() {
             return this.$store.dispatch("getSearchList", this.searchParams);
         },
-        removeCategoryName(){
-            this.searchParams.categoryName = undefined
-            this.searchParams.category1Id = undefined
-            this.searchParams.category2Id = undefined
-            this.searchParams.category3Id = undefined
-            this.getData()
+        removeCategoryName() {
+            this.searchParams.categoryName = undefined;
+            this.searchParams.category1Id = undefined;
+            this.searchParams.category2Id = undefined;
+            this.searchParams.category3Id = undefined;
+            this.getData();
             //地址栏也要改，跳转到自己。有params参数不应该删除
-            if(this.$route.params){
-                this.$router.push({name:"search",params:this.$route.params})
+            if (this.$route.params) {
+                this.$router.push({
+                    name: "search",
+                    params: this.$route.params,
+                });
             }
         },
         // 删除关键字
-        removeKeyword(){
-            this.searchParams.keyword = undefined
-            this.getData()
+        removeKeyword() {
+            this.searchParams.keyword = undefined;
+            this.getData();
             //通知兄弟组件Hearder清除关键字
-            this.$bus.$emit("clear")
+            this.$bus.$emit("clear");
             //进行路由跳转，目的是清除路由中的关键字
-            if(this.$route.query){
-               this.$router.push({name:"search",query:this.$route.query}) 
-            } 
+            if (this.$route.query) {
+                this.$router.push({ name: "search", query: this.$route.query });
+            }
         },
         //自定义事件的回调
-        trademarkInfo(trademark){
+        trademarkInfo(trademark) {
             //整理品牌字段参数 ID：品牌名称
-            this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
+            this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`;
             //再次发请求获取search模块列表数据进行展示
-            this.getData()
+            this.getData();
             // console.log(trademark)
         },
-        removeTrademark(){
+        removeTrademark() {
             //将品牌信息置空，再次发请求
-            this.searchParams.trademark = undefined
-            this.getData()
+            this.searchParams.trademark = undefined;
+            this.getData();
+        },
+        //收集平台属性的回调
+        attrInfo(attr, attrValue) {
+            // console.log(attr,attrValue)
+            //["属性ID:属性值:属性名"]
+            let props = `${attr.attrId}:${attrValue}:${attr.attrName}`;
+            //数组去重
+            if (this.searchParams.props.indexOf(props) === -1)
+                this.searchParams.props.push(props);
+            this.getData();
+        },
+        //删除售卖属性
+        removeAttr(index){
+            this.searchParams.props.splice(index,1)
+            this.getData();
         }
     },
     //监听组件实例身上的属性值的变化,监听路由的信息是否发生变化，变化就再次发请求
-    watch:{
-        $route(newValue,oldValue){
+    watch: {
+        $route(newValue, oldValue) {
             //发请求之前需要整理给服务器的参数
-            Object.assign(this.searchParams,this.$route.query,this.$route.params)
-            this.getData()
-            this.searchParams.category1Id = undefined
-            this.searchParams.category2Id = undefined
-            this.searchParams.category3Id = undefined
-        }
-    }
+            Object.assign(
+                this.searchParams,
+                this.$route.query,
+                this.$route.params
+            );
+            this.getData();
+            this.searchParams.category1Id = undefined;
+            this.searchParams.category2Id = undefined;
+            this.searchParams.category3Id = undefined;
+        },
+    },
 };
 </script>
 
