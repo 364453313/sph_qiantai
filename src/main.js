@@ -31,6 +31,10 @@ Vue.config.productionTip = false
 
 new Vue({
     render: h => h(App),
+    //全局事件总线$bus的配置
+    beforeCreate(){
+        Vue.prototype.$bus = this
+    },
     //路由注册，kv一直省略v，router是小写的
     router, //这时组件身上都拥有$route和$router属性
     //注册仓库，组件实例身上会多一个属性$store属性

@@ -11,7 +11,10 @@
                         </li>
                     </ul>
                     <ul class="fl sui-tag">
+                        <!-- 分类的面包屑 -->
                         <li class="with-x" v-if="searchParams.categoryName">{{searchParams.categoryName}}<i @click="removeCategoryName">×</i></li>
+                        <!-- 关键字面包屑 -->
+                        <li class="with-x" v-if="searchParams.keyword">{{searchParams.keyword}}<i @click="removeKeyword">×</i></li>
                     </ul>
                 </div>
 
@@ -191,6 +194,17 @@ export default {
             if(this.$route.params){
                 this.$router.push({name:"search",params:this.$route.params})
             }
+        },
+        // 删除关键字
+        removeKeyword(){
+            this.searchParams.keyword = undefined
+            this.getData()
+            //通知兄弟组件Hearder清除关键字
+            this.$bus.$emit("clear")
+            //进行路由跳转，目的是清除路由中的关键字
+            if(this.$route.query){
+               this.$router.push({name:"search",query:this.$route.query}) 
+            } 
         }
     },
     //监听组件实例身上的属性值的变化,监听路由的信息是否发生变化，变化就再次发请求
