@@ -10,6 +10,10 @@ Vue.component(TypeNav.name, TypeNav)
 import Carousel from '@/components/Carousel'
 Vue.component(Carousel.name, Carousel)
 
+//分页器全局组件
+import Pagination from '@/components/Pagination'
+Vue.component(Pagination.name,Pagination)
+
 //引入mockServer.js,mock数据
 import "@/mock/mockServer"
 
