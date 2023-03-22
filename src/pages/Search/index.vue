@@ -131,7 +131,9 @@
                             </li>
                         </ul>
                     </div>
-                    <Pagination />
+
+                    <!-- 分页器 -->
+                    <Pagination :pageNo="32" :pageSize="3" :total="91" :continues="5" />
                 </div>
             </div>
         </div>
@@ -262,18 +264,16 @@ export default {
             let orginFlag = orginOrder.split(":")[0];
             let orginSort = orginOrder.split(":")[1];
             //准备一个新order属性值
-            let newOrder = "";
+            let orderNew = "";
             //点击的是综合
             if (flag === orginFlag) {
-                newOrder = `${orginFlag}:${
-                    orginSort == "desc" ? "asc" : "desc"
-                }`;
+                orderNew = `${orginFlag}:${(orginSort === "asc" ? "desc" : "asc")}`;
             } else {
                 // 点击的是价格
-                newOrder = `${flag}:${"desc"}`;
+                orderNew = `${flag}:${orginSort = 'desc'}`;
             }
             //将新的order赋予searchParams
-            this.searchParams.order = newOrder;
+            this.searchParams.order = orderNew;
             //服务器再发请求
             this.getData();
         },
