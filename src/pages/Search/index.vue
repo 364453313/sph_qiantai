@@ -133,7 +133,7 @@
                     </div>
 
                     <!-- 分页器 -->
-                    <Pagination :pageNo="28" :pageSize="3" :total="91" :continues="5" />
+                    <Pagination :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :total="total" :continues="5" @getPageNo="getPageNo" />
                 </div>
             </div>
         </div>
@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters,mapState } from "vuex";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
     name: "Search",
@@ -163,7 +163,7 @@ export default {
                 //分页器用，代表当前页码
                 pageNo: 1,
                 //每页展示数据个数
-                pageSize: 10,
+                pageSize: 3,
                 //平台售卖属性操作带的参数
                 props: [],
                 //品牌
@@ -197,6 +197,9 @@ export default {
         isDesc() {
             return this.searchParams.order.indexOf("desc") != -1;
         },
+        ...mapState({
+            total:state=>state.search.searchList.total
+        })
     },
     methods: {
         //把请求封装为函数，当需要的时候调用就行了
@@ -277,6 +280,11 @@ export default {
             //服务器再发请求
             this.getData();
         },
+        //子给父传递数据的回调，获取当前页码
+        getPageNo(pageNo){
+            this.searchParams.pageNo = pageNo
+            this.getData()
+        }
     },
     //监听组件实例身上的属性值的变化,监听路由的信息是否发生变化，变化就再次发请求
     watch: {
