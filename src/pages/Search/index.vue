@@ -91,9 +91,10 @@
                             >
                                 <div class="list-wrap">
                                     <div class="p-img">
-                                        <a href="item.html" target="_blank"
+                                        <!-- 路由跳转的时候携带id参数params -->
+                                        <router-link href="item.html" :to="`/detail/${good.id}`"
                                             ><img :src="good.defaultImg"
-                                        /></a>
+                                        /></router-link>
                                     </div>
                                     <div class="price">
                                         <strong>
@@ -133,7 +134,13 @@
                     </div>
 
                     <!-- 分页器 -->
-                    <Pagination :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :total="total" :continues="5" @getPageNo="getPageNo" />
+                    <Pagination
+                        :pageNo="searchParams.pageNo"
+                        :pageSize="searchParams.pageSize"
+                        :total="total"
+                        :continues="5"
+                        @getPageNo="getPageNo"
+                    />
                 </div>
             </div>
         </div>
@@ -141,7 +148,7 @@
 </template>
 
 <script>
-import { mapGetters,mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
     name: "Search",
@@ -198,8 +205,8 @@ export default {
             return this.searchParams.order.indexOf("desc") != -1;
         },
         ...mapState({
-            total:state=>state.search.searchList.total
-        })
+            total: (state) => state.search.searchList.total,
+        }),
     },
     methods: {
         //把请求封装为函数，当需要的时候调用就行了
@@ -270,10 +277,12 @@ export default {
             let orderNew = "";
             //点击的是综合
             if (flag === orginFlag) {
-                orderNew = `${orginFlag}:${(orginSort === "asc" ? "desc" : "asc")}`;
+                orderNew = `${orginFlag}:${
+                    orginSort === "asc" ? "desc" : "asc"
+                }`;
             } else {
                 // 点击的是价格
-                orderNew = `${flag}:${orginSort = 'desc'}`;
+                orderNew = `${flag}:${(orginSort = "desc")}`;
             }
             //将新的order赋予searchParams
             this.searchParams.order = orderNew;
@@ -281,10 +290,10 @@ export default {
             this.getData();
         },
         //子给父传递数据的回调，获取当前页码
-        getPageNo(pageNo){
-            this.searchParams.pageNo = pageNo
-            this.getData()
-        }
+        getPageNo(pageNo) {
+            this.searchParams.pageNo = pageNo;
+            this.getData();
+        },
     },
     //监听组件实例身上的属性值的变化,监听路由的信息是否发生变化，变化就再次发请求
     watch: {
