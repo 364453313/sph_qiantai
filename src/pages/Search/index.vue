@@ -163,7 +163,7 @@ export default {
                 //分页器用，代表当前页码
                 pageNo: 1,
                 //每页展示数据个数
-                pageSize: 3,
+                pageSize: 10,
                 //平台售卖属性操作带的参数
                 props: [],
                 //品牌
