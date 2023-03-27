@@ -356,7 +356,11 @@
     components: {
       ImageList,
       Zoom
-    }
+    },
+    mounted() {
+        //派发aciton获取产品详情的信息
+        this.$store.dispatch('getGoodInfo',this.$route.params.skuid)
+    },
   }
 </script>
 
