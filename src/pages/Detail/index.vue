@@ -7,9 +7,15 @@
         <section class="con">
             <!-- 导航路径区域 -->
             <div class="conPoin">
-                <span v-show="categoryView.category1Name">{{categoryView.category1Name}}</span>
-                <span v-show="categoryView.category2Name">{{categoryView.category2Name}}</span>
-                <span v-show="categoryView.category3Name">{{categoryView.category3Name}}</span>
+                <span v-show="categoryView.category1Name">{{
+                    categoryView.category1Name
+                }}</span>
+                <span v-show="categoryView.category2Name">{{
+                    categoryView.category2Name
+                }}</span>
+                <span v-show="categoryView.category3Name">{{
+                    categoryView.category3Name
+                }}</span>
             </div>
             <!-- 主要内容区域 -->
             <div class="mainCon">
@@ -24,10 +30,10 @@
                 <div class="InfoWrap">
                     <div class="goodsDetail">
                         <h3 class="InfoName">
-                            {{skuInfo.skuName}}
+                            {{ skuInfo.skuName }}
                         </h3>
                         <p class="news">
-                            {{skuInfo.skuDesc}}
+                            {{ skuInfo.skuDesc }}
                         </p>
                         <div class="priceArea">
                             <div class="priceArea1">
@@ -36,7 +42,7 @@
                                 </div>
                                 <div class="price">
                                     <i>¥</i>
-                                    <em>{{skuInfo.price}}</em>
+                                    <em>{{ skuInfo.price }}</em>
                                     <span>降价通知</span>
                                 </div>
                                 <div class="remark">
@@ -77,11 +83,26 @@
                     <div class="choose">
                         <div class="chooseArea">
                             <div class="choosed"></div>
-                            <dl v-for="(item,index) in spuSaleAttrList" :key="item.id">
-                                <dt class="title">{{item.saleAttrName}}</dt>
-                                <dd changepirce="0" class="active">金色</dd>
-                                <dd changepirce="40">银色</dd>
-                                <dd changepirce="90">黑色</dd>
+                            <dl
+                                v-for="(spuSaleAttr, index) in spuSaleAttrList"
+                                :key="spuSaleAttr.id"
+                            >
+                                <dt class="title">
+                                    {{ spuSaleAttr.saleAttrName }}
+                                </dt>
+                                <dd
+                                    changepirce="0"
+                                    :class="{
+                                        active:
+                                            spuSaleAttrValue.isChecked === '1',
+                                    }"
+                                    v-for="(
+                                        spuSaleAttrValue, index
+                                    ) in spuSaleAttr.spuSaleAttrValueList"
+                                    :key="spuSaleAttrValue.id"
+                                >
+                                    {{ spuSaleAttrValue.saleAttrValueName }}
+                                </dd>
                             </dl>
                         </div>
                         <div class="cartWrap">
@@ -361,10 +382,10 @@ export default {
         this.$store.dispatch("getGoodInfo", this.$route.params.skuid);
     },
     computed: {
-        ...mapGetters(["categoryView", "skuInfo","spuSaleAttrList"]),
-        skuImageList(){
-            return this.skuInfo.skuImageList || []
-        }
+        ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
+        skuImageList() {
+            return this.skuInfo.skuImageList || [];
+        },
     },
 };
 </script>
