@@ -100,6 +100,7 @@
                                         spuSaleAttrValue, index
                                     ) in spuSaleAttr.spuSaleAttrValueList"
                                     :key="spuSaleAttrValue.id"
+                                    @click="changeActive"
                                 >
                                     {{ spuSaleAttrValue.saleAttrValueName }}
                                 </dd>
@@ -386,6 +387,11 @@ export default {
         skuImageList() {
             return this.skuInfo.skuImageList || [];
         },
+    },
+    methods: {
+        changeActive(){
+            alert(123)
+        }
     },
 };
 </script>
