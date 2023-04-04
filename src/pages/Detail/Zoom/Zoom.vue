@@ -13,11 +13,22 @@
   export default {
     name: "Zoom",
     props:["skuImageList"],
+    data() {
+        return {
+            correntIndex:0
+        }
+    },
     computed:{
         imgObj(){
-            return this.skuImageList[0] || {}
+            return this.skuImageList[this.correntIndex] || {}
         }
-    }
+    },
+    mounted() {
+        //获取ImageList传递过来的索引值
+        this.$bus.$on('getIndex',(index)=>{
+            this.correntIndex = index
+        })
+    },
   }
 </script>
 
