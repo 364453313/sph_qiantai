@@ -100,7 +100,12 @@
                                         spuSaleAttrValue, index
                                     ) in spuSaleAttr.spuSaleAttrValueList"
                                     :key="spuSaleAttrValue.id"
-                                    @click="changeActive"
+                                    @click="
+                                        changeActive(
+                                            spuSaleAttrValue,
+                                            spuSaleAttr.spuSaleAttrValueList
+                                        )
+                                    "
                                 >
                                     {{ spuSaleAttrValue.saleAttrValueName }}
                                 </dd>
@@ -389,9 +394,12 @@ export default {
         },
     },
     methods: {
-        changeActive(){
-            alert(123)
-        }
+        changeActive(saleAttrValue, arr) {
+            arr.forEach(element => {
+                element.isChecked = '0'
+            });
+            saleAttrValue.isChecked = '1'
+        },
     },
 };
 </script>
