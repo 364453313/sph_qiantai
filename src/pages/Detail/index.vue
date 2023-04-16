@@ -22,15 +22,9 @@
                 <!-- 左侧放大镜区域 -->
                 <div class="previewWrap">
                     <!--放大镜效果-->
-<<<<<<< HEAD
-                    <Zoom />
-                    <!-- 小图列表 -->
-                    <ImageList />
-=======
                     <Zoom :skuImageList="skuImageList" />
                     <!-- 小图列表 -->
                     <ImageList :skuImageList="skuImageList" />
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
                 </div>
                 <!-- 右侧选择区域布局 -->
                 <div class="InfoWrap">
@@ -39,11 +33,7 @@
                             {{ skuInfo.skuName }}
                         </h3>
                         <p class="news">
-<<<<<<< HEAD
-                            {{skuInfo.skuDesc}}
-=======
                             {{ skuInfo.skuDesc }}
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
                         </p>
                         <div class="priceArea">
                             <div class="priceArea1">
@@ -52,11 +42,7 @@
                                 </div>
                                 <div class="price">
                                     <i>¥</i>
-<<<<<<< HEAD
-                                    <em>{{skuInfo.price}}</em>
-=======
                                     <em>{{ skuInfo.price }}</em>
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
                                     <span>降价通知</span>
                                 </div>
                                 <div class="remark">
@@ -66,15 +52,11 @@
                             </div>
                             <div class="priceArea2">
                                 <div class="title">
-                                    <i
-                                        >促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</i
-                                    >
+                                    <i>促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</i>
                                 </div>
                                 <div class="fixWidth">
                                     <i class="red-bg">加价购</i>
-                                    <em class="t-gray"
-                                        >满999.00另加20.00元，或满1999.00另加30.00元，或满2999.00另加40.00元，即可在购物车换购热销商品</em
-                                    >
+                                    <em class="t-gray">满999.00另加20.00元，或满1999.00另加30.00元，或满2999.00另加40.00元，即可在购物车换购热销商品</em>
                                 </div>
                             </div>
                         </div>
@@ -97,91 +79,36 @@
                     <div class="choose">
                         <div class="chooseArea">
                             <div class="choosed"></div>
-<<<<<<< HEAD
-                            <dl>
-                                <dt class="title">选择颜色</dt>
-                                <dd changepirce="0" class="active">金色</dd>
-                                <dd changepirce="40">银色</dd>
-                                <dd changepirce="90">黑色</dd>
-                            </dl>
-                            <dl>
-                                <dt class="title">内存容量</dt>
-                                <dd changepirce="0" class="active">16G</dd>
-                                <dd changepirce="300">64G</dd>
-                                <dd changepirce="900">128G</dd>
-                                <dd changepirce="1300">256G</dd>
-                            </dl>
-                            <dl>
-                                <dt class="title">选择版本</dt>
-                                <dd changepirce="0" class="active">公开版</dd>
-                                <dd changepirce="-1000">移动版</dd>
-                            </dl>
-                            <dl>
-                                <dt class="title">购买方式</dt>
-                                <dd changepirce="0" class="active">官方标配</dd>
-                                <dd changepirce="-240">优惠移动版</dd>
-                                <dd changepirce="-390">电信优惠版</dd>
-=======
-                            <dl
-                                v-for="(spuSaleAttr, index) in spuSaleAttrList"
-                                :key="spuSaleAttr.id"
-                            >
+                            <dl v-for="(spuSaleAttr, index) in spuSaleAttrList" :key="spuSaleAttr.id">
                                 <dt class="title">
                                     {{ spuSaleAttr.saleAttrName }}
                                 </dt>
-                                <dd
-                                    changepirce="0"
-                                    :class="{
-                                        active:
-                                            spuSaleAttrValue.isChecked === '1',
-                                    }"
-                                    v-for="(
-                                        spuSaleAttrValue, index
-                                    ) in spuSaleAttr.spuSaleAttrValueList"
-                                    :key="spuSaleAttrValue.id"
-                                    @click="
-                                        changeActive(
-                                            spuSaleAttrValue,
-                                            spuSaleAttr.spuSaleAttrValueList
-                                        )
-                                    "
-                                >
+                                <dd changepirce="0" :class="{
+                                    active:
+                                        spuSaleAttrValue.isChecked === '1',
+                                }" v-for="(
+                                            spuSaleAttrValue, index
+                                        ) in spuSaleAttr.spuSaleAttrValueList" :key="spuSaleAttrValue.id" @click="
+                                            changeActive(
+                                                spuSaleAttrValue,
+                                                spuSaleAttr.spuSaleAttrValueList
+                                            )
+                                        ">
                                     {{ spuSaleAttrValue.saleAttrValueName }}
                                 </dd>
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
                             </dl>
                         </div>
                         <div class="cartWrap">
                             <div class="controls">
-<<<<<<< HEAD
-                                <input autocomplete="off" class="itxt" />
-                                <a href="javascript:" class="plus">+</a>
-                                <a href="javascript:" class="mins">-</a>
-=======
-                                <input
-                                    autocomplete="off"
-                                    class="itxt"
-                                    v-model="skuNum"
-                                    @change="changeSkuNum"
-                                />
-                                <a
-                                    href="javascript:"
-                                    class="plus"
-                                    @click="skuNum++"
-                                    >+</a
-                                >
-                                <a
-                                    href="javascript:"
-                                    class="mins"
-                                    @click="
-                                        skuNum > 1 ? skuNum-- : (skuName = 1)
-                                    "
-                                    >-</a
-                                >
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
+                                <input autocomplete="off" class="itxt" v-model="skuNum" @change="changeSkuNum" />
+                                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                                <a href="javascript:" class="mins" @click="
+                                    skuNum > 1 ? skuNum-- : (skuName = 1)
+                                ">-</a>
                             </div>
                             <div class="add">
-                                <a href="javascript:">加入购物车</a>
+                                <!-- 进行跳转并发请求 -->
+                                <a @click="addShopCar">加入购物车</a>
                             </div>
                         </div>
                     </div>
@@ -222,9 +149,7 @@
                                         <i>6088.00</i>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);"
-                                            >加入购物车</a
-                                        >
+                                        <a href="javascript:void(0);">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
@@ -243,9 +168,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);"
-                                            >加入购物车</a
-                                        >
+                                        <a href="javascript:void(0);">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
@@ -264,9 +187,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);"
-                                            >加入购物车</a
-                                        >
+                                        <a href="javascript:void(0);">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
@@ -285,9 +206,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);"
-                                            >加入购物车</a
-                                        >
+                                        <a href="javascript:void(0);">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
@@ -306,9 +225,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);"
-                                            >加入购物车</a
-                                        >
+                                        <a href="javascript:void(0);">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
@@ -438,12 +355,6 @@
 import ImageList from "./ImageList/ImageList";
 import Zoom from "./Zoom/Zoom";
 import { mapGetters } from "vuex";
-<<<<<<< HEAD
-
-export default {
-    name: "Detail",
-
-=======
 
 export default {
     name: "Detail",
@@ -452,7 +363,6 @@ export default {
             skuNum: 1,
         };
     },
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
     components: {
         ImageList,
         Zoom,
@@ -462,9 +372,6 @@ export default {
         this.$store.dispatch("getGoodInfo", this.$route.params.skuid);
     },
     computed: {
-<<<<<<< HEAD
-        ...mapGetters(["categoryView", "skuInfo"]),
-=======
         ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"]),
         skuImageList() {
             return this.skuInfo.skuImageList || [];
@@ -481,11 +388,14 @@ export default {
             let value = event.target.value * 1;
             if (isNaN(value) || value < 1) {
                 this.skuNum = 1
-            }else{
+            } else {
                 this.skuNum = parseInt(value)
             }
         },
->>>>>>> 5838dff1bab90a69394562e8c2d17b103ee9d7b0
+        addShopCar() {
+            // 发请求，将产品加入数据库
+            this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum })
+        }
     },
 };
 </script>
@@ -499,7 +409,7 @@ export default {
         .conPoin {
             padding: 9px 15px 9px 0;
 
-            & > span + span:before {
+            &>span+span:before {
                 content: "/\00a0";
                 padding: 0 5px;
                 color: #ccc;
@@ -764,7 +674,7 @@ export default {
                         }
 
                         .goodsList {
-                            & > li {
+                            &>li {
                                 margin: 5px 0 15px;
                                 border-bottom: 1px solid #ededed;
                                 padding-bottom: 5px;
@@ -929,7 +839,7 @@ export default {
                     li {
                         float: left;
 
-                        & + li > a {
+                        &+li>a {
                             border-left: 1px solid #ddd;
                         }
 

@@ -1,4 +1,4 @@
-import { reqGoodsInfo } from "@/api"
+import { reqGoodsInfo, reqAddOrUpdateShopCart } from "@/api"
 
 const state = {
     goodInfo: {}
@@ -15,6 +15,17 @@ const actions = {
         if (result.code === 200) {
             commit('GETGOODINFO', result.data)
         }
+    },
+    async addOrUpdateShopCart({ commit }, { skuId, skuNum }) {
+        //加入购物车返回的解构
+        //加入购物车以后发请求，前台将参数带给服务器
+        //服务器数据写入成功，并没有返回其他数据，返回code=200表示操作成功
+        //因此不需要存储数据
+        let result = await reqAddOrUpdateShopCart(skuId, skuNum)
+        console.log(result)
+        /* if(result.code === 200){
+            commit('GETADDORUPDATESHOPCART')
+        } */
     }
 }
 const getters = {
@@ -27,7 +38,7 @@ const getters = {
         return state.goodInfo.skuInfo || {}
     },
     //产品售卖属性
-    spuSaleAttrList(state){
+    spuSaleAttrList(state) {
         return state.goodInfo.spuSaleAttrList || []
     }
 }
