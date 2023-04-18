@@ -87,13 +87,13 @@
                                     active:
                                         spuSaleAttrValue.isChecked === '1',
                                 }" v-for="(
-                                            spuSaleAttrValue, index
-                                        ) in spuSaleAttr.spuSaleAttrValueList" :key="spuSaleAttrValue.id" @click="
-                                            changeActive(
-                                                spuSaleAttrValue,
-                                                spuSaleAttr.spuSaleAttrValueList
-                                            )
-                                        ">
+                                                spuSaleAttrValue, index
+                                            ) in spuSaleAttr.spuSaleAttrValueList" :key="spuSaleAttrValue.id" @click="
+                                                changeActive(
+                                                    spuSaleAttrValue,
+                                                    spuSaleAttr.spuSaleAttrValueList
+                                                )
+                                            ">
                                     {{ spuSaleAttrValue.saleAttrValueName }}
                                 </dd>
                             </dl>
@@ -394,8 +394,11 @@ export default {
         },
         async addShopCar() {
             // 发请求，将产品加入数据库
-            let result = await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum })
-            console.log(result)
+            try{
+                await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum })
+            }catch(error){
+                alert(error.message)
+            }    
         }
     },
 };

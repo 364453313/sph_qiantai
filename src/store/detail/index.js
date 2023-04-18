@@ -21,12 +21,12 @@ const actions = {
         //加入购物车以后发请求，前台将参数带给服务器
         //服务器数据写入成功，并没有返回其他数据，返回code=200表示操作成功
         //因此不需要存储数据
-        let result = await reqAddOrUpdateShopCart(skuId, skuNum)
+        let result = await reqAddOrUpdateShopCart(skuId, skuNum);
         // 代表服务器加入购物车成功
-        if(result.code === 200){
+        if (result.code === 200) {
             return 'ok'
         }else{
-            // 代表加入购物车失败
+           // 代表加入购物车失败 
             return Promise.reject(new Error('faile'))
         }
     }
