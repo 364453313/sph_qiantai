@@ -392,9 +392,10 @@ export default {
                 this.skuNum = parseInt(value)
             }
         },
-        addShopCar() {
+        async addShopCar() {
             // 发请求，将产品加入数据库
-            this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum })
+            let result = await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum })
+            console.log(result)
         }
     },
 };
