@@ -118,6 +118,15 @@
 <script>
   export default {
     name: 'ShopCart',
+
+    mounted(){
+        this.getData()
+    },
+    methods:{
+        getData(){
+            return this.$store.dispatch('getCartList')
+        }
+    }
   }
 </script>
 
