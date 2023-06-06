@@ -396,6 +396,9 @@ export default {
             // 发请求，将产品加入数据库
             try{
                 await this.$store.dispatch('addOrUpdateShopCart', { skuId: this.$route.params.skuid, skuNum: this.skuNum })
+                // 进行路由跳转
+                sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo))
+                this.$router.push({name:'addcartsuccess',query:{skuNum:this.skuNum}})
             }catch(error){
                 alert(error.message)
             }    

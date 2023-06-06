@@ -4,6 +4,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Search from '@/pages/Search'
 import Detail from '@/pages/Detail'
+import AddCartSuccess from '@/pages/AddCartSuccess'
 
 // 路由配置信息
 export default [
@@ -40,6 +41,12 @@ export default [
         path: '/detail/:skuid',
         component: Detail,
         meta: { isShow: true }
+    },
+    {
+        path: '/addcartsuccess',
+        name:'addcartsuccess',
+        component: AddCartSuccess,
+        meta: { show: true }
     },
     //默认首页
     {
